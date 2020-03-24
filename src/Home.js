@@ -7,7 +7,6 @@ const Home = () => {
   const { data, loading } = useFetch('https://enrichman.github.io/covid19/world/full.json')
 
 
-
   if (loading) {
     return (<div>Cargando datos..</div>)
   }
