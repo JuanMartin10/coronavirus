@@ -1,25 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import DataList from '../UI/DataList'
-import useFetch from '../../hooks/useFetch'
+import useCoronaVirusData from '../../hooks/useCoronaVirusData'
 
 
-const Spain = () => {
+const Spain = ({ globalData }) => {
 
-    const { data, loading } = useFetch('https://enrichman.github.io/covid19/world/spain/data.json')
+    const { data, loading } = useCoronaVirusData('/spain/data.json')
 
     if (loading) {
         return (<div>Cargando datos..</div>)
     }
     return (
-        <>
-            <DataList
-                deaths={data.deaths}
-                confirmed={data.confirmed}
-                recovered={data.recovered} />
-        </>
+        <div>
+            <h1>Estadisticas en España</h1>
+            <DataList deaths={data.deaths} confirmed={data.confirmed} recovered={data.recovered} />
+            <h2>Estadisticas globales</h2>
+            <DataList deaths={globalData.deaths} confirmed={globalData.confirmed} recovered={globalData.recovered} />
+        </div>
     );
 }
 
+const mapStateToProps = state => {
+    return { globalData: state }
+}
+
+export default connect(mapStateToProps)(Spain);
 
 
-export default Spain;

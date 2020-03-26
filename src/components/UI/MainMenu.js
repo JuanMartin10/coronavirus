@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { home, spain, contact } from '../../conf/routes'
+import { home, spain, contact, formikContact } from '../../conf/routes'
 import PropTypes from 'prop-types'
 
 const MainMenu = ({ onClickChangeThemeButton }) => (
@@ -14,6 +14,9 @@ const MainMenu = ({ onClickChangeThemeButton }) => (
             </li>
             <li>
                 <Link to={contact()}>Contacto</Link>
+            </li>
+            <li>
+                <Link to={formikContact()}>Contacto con Formik</Link>
             </li>
             <li>
                 <button onClick={onClickChangeThemeButton}>Cambiar color</button>

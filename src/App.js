@@ -1,15 +1,16 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import { home, spain, contact } from './conf/routes'
-import ThemeContext from './context/ThemeContext';
-import './App.css';
+import styled, { ThemeProvider } from 'styled-components';
+import { home, spain, contact, formikContact } from './conf/routes'
 import { darkTheme, lightTheme } from './styles/theme'
 import MainMenu from './components/UI/MainMenu'
+import GlobalStyle from './styles/GlobalStyle'
 
 const Home = lazy(() => import('./components/screens/Home'));
 const Spain = lazy(() => import('./components/screens/Spain'));
 const Contact = lazy(() => import('./components/screens/Contact'));
+const FormikContact = lazy(() => import('./components/screens/FormikContact'));
+
 
 
 
@@ -28,28 +29,35 @@ export default function App() {
     const currentTheme = isDarkTheme ? darkTheme : lightTheme;
 
     return (
-        <ThemeContext.Provider value={currentTheme}>
-            <MainContainer theme={currentTheme}>
-                <Router>
-                    <Suspense fallback={<div>Cargando..</div>}>
-                        <div>
-                            <MainMenu onClickChangeThemeButton={handleChangeTheme} />
-                            <Switch>
-                                <Route exact path={home()}>
-                                    <Home />
-                                </Route>
-                                <Route path={spain()}>
-                                    <Spain />
-                                </Route>
-                                <Route path={contact()}>
-                                    <Contact />
-                                </Route>
-                            </Switch>
-                        </div>
-                    </Suspense>
-                </Router>
-            </MainContainer>
-        </ThemeContext.Provider>
+        <>
+            <GlobalStyle />
+            <ThemeProvider theme={currentTheme}>
+                <MainContainer theme={currentTheme}>
+                    <Router>
+                        <Suspense fallback={<div>Cargando..</div>}>
+                            <div>
+                                <MainMenu onClickChangeThemeButton={handleChangeTheme} />
+                                <Switch>
+                                    <Route exact path={home()}>
+                                        <Home />
+                                    </Route>
+                                    <Route path={spain()}>
+                                        <Spain />
+                                    </Route>
+                                    <Route path={contact()}>
+                                        <Contact />
+                                    </Route>
+                                    <Route path={formikContact()}>
+                                        <FormikContact />
+                                    </Route>
+
+                                </Switch>
+                            </div>
+                        </Suspense>
+                    </Router>
+                </MainContainer>
+            </ThemeProvider>
+        </>
     );
 }
 

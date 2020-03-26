@@ -1,15 +1,27 @@
 import React from 'react';
 import DataList from '../UI/DataList'
-import useFetch from '../../hooks/useFetch'
+import useCoronaVirusData from '../../hooks/useCoronaVirusData'
+import { useDispatch } from 'react-redux'
+import { SET_GLOBAL_DATA } from '../../reducer'
 
 const Home = () => {
 
-  const { data, loading } = useFetch('https://enrichman.github.io/covid19/world/full.json')
-
+  const { data, loading } = useCoronaVirusData('/full.json')
+  const dispatch = useDispatch();
 
   if (loading) {
     return (<div>Cargando datos..</div>)
   }
+
+  dispatch({
+    type: SET_GLOBAL_DATA,
+    data: {
+      confirmed: data.confirmed,
+      deaths: data.deaths,
+      recovered: data.recovered
+    }
+  })
+
   return (
     <>
       <DataList

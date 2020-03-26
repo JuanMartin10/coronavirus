@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ThemeContext from '../../context/ThemeContext';
-
 
 const DataContainer = styled.div`
     color: ${props => props.theme.color};
@@ -14,10 +12,9 @@ const Number = styled.p`
 `
 
 const Data = ({ number, title }) => {
-    const theme = useContext(ThemeContext);
 
     return (
-        <DataContainer theme={theme}>
+        <DataContainer>
             <Number>{number}</Number>
             <div>{title}</div>
         </DataContainer>
